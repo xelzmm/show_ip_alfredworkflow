@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>cn.ming.alfred.ip</string>
+	<key>connections</key>
+	<dict>
+		<key>9A7448AC-A660-4758-8A05-8F0F67ED23FC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>19498EAD-C781-4E55-A5F7-3B0EBCBE8367</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>xelz</string>
+	<key>description</key>
+	<string>查看并复制本机IP</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>IP</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>19498EAD-C781-4E55-A5F7-3B0EBCBE8367</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>ip</string>
+				<key>script</key>
+				<string>PARAM="{query}"
+
+interfaces=($(/sbin/ifconfig -l))
+
+echo '&lt;items&gt;'
+
+if [ $PARAM != "" ]; then
+    ip=($(/sbin/ifconfig $PARAM|grep inet|grep -v inet6|awk '{print $2}'|tr -d "addr:"))
+    if [ $ip != "" ]; then
+        echo '&lt;item arg="'$ip'" uid="'1'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'网卡 $PARAM 本地IP $ip'&lt;/title&gt;&lt;/item&gt;'
+    else
+        echo '&lt;item uid="'1'" valid="no"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;请重新输入&lt;/subtitle&gt;&lt;title&gt;'网卡 $PARAM 不存在 或者没有ipv4地址'&lt;/title&gt;&lt;/item&gt;'
+    fi
+else
+    i=1
+    for interface in ${interfaces[@]}
+    do
+        ip=($(/sbin/ifconfig $interface|grep inet|grep -v 127\.0\.0\.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"))
+        if [ $ip != "" ]; then
+            echo '&lt;item arg="'$ip'" uid="'$i'" autocomplete="'$interface'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'本地网卡 $interface IP $ip'&lt;/title&gt;&lt;/item&gt;'
+            let i+=1
+        fi
+    done
+fi
+
+	ip=`dig +short myip.opendns.com @resolver1.opendns.com`
+	echo '&lt;item arg="'$ip'" uid="'$i'" autocomplete="'$interface'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'本机公网 IP $ip'&lt;/title&gt;&lt;/item&gt;'
+
+echo '&lt;/items&gt;'</string>
+				<key>title</key>
+				<string>显示本机IP</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>9A7448AC-A660-4758-8A05-8F0F67ED23FC</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>19498EAD-C781-4E55-A5F7-3B0EBCBE8367</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>9A7448AC-A660-4758-8A05-8F0F67ED23FC</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
