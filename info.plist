@@ -17,6 +17,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>FB02F947-0800-44C4-9310-DFC9FA2B4B64</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>19498EAD-C781-4E55-A5F7-3B0EBCBE8367</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>xelz</string>
@@ -50,6 +61,43 @@
 				<integer>63</integer>
 				<key>keyword</key>
 				<string>ip</string>
+				<key>runningsubtext</key>
+				<string>正在查询本机公网IP</string>
+				<key>script</key>
+				<string>echo '&lt;items&gt;'
+
+	#ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	#ip=$(dig +short myip.opendns.com @208.67.222.222)
+	ip=$(curl http://iframe.ip138.com/ic.asp | grep body | awk -F[\]\[] '{print $2}')
+	#ip=$(curl http://myip.dnsomatic.com)
+	echo '&lt;item arg="'$ip'" uid="'$i'" autocomplete="'$interface'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'本机公网 IP $ip'&lt;/title&gt;&lt;/item&gt;'
+
+echo '&lt;/items&gt;'</string>
+				<key>subtext</key>
+				<string>查询本机的公网IP</string>
+				<key>title</key>
+				<string>查询公网IP</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>FB02F947-0800-44C4-9310-DFC9FA2B4B64</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>ip</string>
+				<key>runningsubtext</key>
+				<string>正在查询本机IP</string>
 				<key>script</key>
 				<string>PARAM="{query}"
 
@@ -76,10 +124,9 @@ else
     done
 fi
 
-	ip=`dig +short myip.opendns.com @resolver1.opendns.com`
-	echo '&lt;item arg="'$ip'" uid="'$i'" autocomplete="'$interface'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'本机公网 IP $ip'&lt;/title&gt;&lt;/item&gt;'
-
 echo '&lt;/items&gt;'</string>
+				<key>subtext</key>
+				<string>显示本机每块网卡的IP地址</string>
 				<key>title</key>
 				<string>显示本机IP</string>
 				<key>type</key>
@@ -106,6 +153,11 @@ echo '&lt;/items&gt;'</string>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>FB02F947-0800-44C4-9310-DFC9FA2B4B64</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
