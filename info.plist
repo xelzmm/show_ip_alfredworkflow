@@ -67,8 +67,8 @@
 				<string>echo '&lt;items&gt;'
 
 	#ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
-	#ip=$(dig +short myip.opendns.com @208.67.222.222)
-	ip=$(curl http://iframe.ip138.com/ic.asp | grep body | awk -F[\]\[] '{print $2}')
+	ip=$(dig +short myip.opendns.com @208.67.222.222)
+	#ip=$(curl http://iframe.ip138.com/ic.asp | grep body | awk -F[\]\[] '{print $2}')
 	#ip=$(curl http://myip.dnsomatic.com)
 	echo '&lt;item arg="'$ip'" uid="'$i'" autocomplete="'$interface'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'本机公网 IP $ip'&lt;/title&gt;&lt;/item&gt;'
 
@@ -110,7 +110,7 @@ if [ $PARAM != "" ]; then
     if [ $ip != "" ]; then
         echo '&lt;item arg="'$ip'" uid="'1'" valid="yes"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;点击拷贝至剪贴板&lt;/subtitle&gt;&lt;title&gt;'网卡 $PARAM 本地IP $ip'&lt;/title&gt;&lt;/item&gt;'
     else
-        echo '&lt;item uid="'1'" valid="no"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;请重新输入&lt;/subtitle&gt;&lt;title&gt;'网卡 $PARAM 不存在 或者没有ipv4地址'&lt;/title&gt;&lt;/item&gt;'
+        echo '&lt;item uid="'1'" valid="no"&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;subtitle&gt;'网卡 $PARAM 不存在 或者没有ipv4地址'&lt;/subtitle&gt;&lt;title&gt;查询失败&lt;/title&gt;&lt;/item&gt;'
     fi
 else
     i=1
@@ -147,7 +147,7 @@ echo '&lt;/items&gt;'</string>
 		<key>19498EAD-C781-4E55-A5F7-3B0EBCBE8367</key>
 		<dict>
 			<key>ypos</key>
-			<real>10</real>
+			<real>70</real>
 		</dict>
 		<key>9A7448AC-A660-4758-8A05-8F0F67ED23FC</key>
 		<dict>
